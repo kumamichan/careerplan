@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#24364b">
+<title>美容師1年目｜キャリアビジョン</title>
+<style>
+:root{--navy:#24364b;--ink:#26313d;--muted:#687482;--line:#dce2e8;--bg:#f4f6f8;--accent:#b58b62;--white:#fff}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;line-height:1.65}
+header{background:linear-gradient(135deg,#203247,#40566d);color:#fff;padding:30px 20px 25px}
+.wrap{max-width:760px;margin:auto;padding:0 16px}
+.kicker{font-size:11px;letter-spacing:.16em;color:#d6c2ac;font-weight:700}
+h1{font-size:25px;line-height:1.35;margin:8px 0;font-weight:700}
+header p{margin:8px 0 0;color:#e5eaf0;font-size:14px}
+main{padding:22px 0 50px}
+.progressbox{background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px 16px;margin-bottom:16px}
+.progressrow{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px}
+.track{height:6px;background:#e9edf1;border-radius:9px;overflow:hidden}.bar{height:100%;width:0;background:var(--accent);transition:width .2s}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;margin:14px 0;box-shadow:0 3px 12px #1c2d3e08}
+.step{font-size:11px;letter-spacing:.1em;color:var(--accent);font-weight:800}
+h2{font-size:19px;color:var(--navy);margin:4px 0 6px}
+.help{font-size:13px;color:var(--muted);margin:0 0 15px}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+label.opt{display:flex;gap:9px;align-items:flex-start;border:1px solid var(--line);border-radius:11px;padding:11px 12px;font-size:13px;cursor:pointer;background:#fff;min-height:48px}
+label.opt:has(input:checked){border-color:var(--navy);background:#f1f4f7}
+input[type=checkbox]{accent-color:var(--navy);width:17px;height:17px;flex:none;margin:2px 0 0}
+textarea,input[type=text]{width:100%;border:1px solid var(--line);border-radius:10px;padding:11px;font:inherit;font-size:14px;background:#fff;color:var(--ink)}
+textarea{min-height:76px;resize:vertical;margin-top:10px}
+.actions{display:flex;gap:10px;justify-content:space-between;align-items:center;margin:18px 0}
+button{border:0;border-radius:999px;padding:12px 20px;font-size:14px;font-weight:700;cursor:pointer}
+.primary{background:var(--navy);color:#fff}.secondary{background:#e7ebef;color:var(--navy)}
+.result{display:none}.result h2{font-size:22px}.resultText{white-space:pre-wrap;background:#f7f8fa;border:1px solid var(--line);border-radius:12px;padding:16px;font-size:14px}
+.note{font-size:12px;color:var(--muted);margin-top:12px}
+@media(max-width:520px){h1{font-size:22px}.options{grid-template-columns:1fr}.card{padding:17px}.wrap{padding:0 13px}}
+@media print{header{background:#fff;color:#000;padding:10px}.kicker,header p{color:#555}.card,.progressbox{box-shadow:none;break-inside:avoid}.actions{display:none}.result{display:block!important}body{background:#fff}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<div class="kicker">CAREER VISION WORKSHEET</div>
+<h1>10年後、どんな美容師に<br>なっていたい？</h1>
+<p>チェックしながら、自分らしい美容師像を見つけていくシートです。<br>正解はありません。今の気持ちで選んでみましょう。</p>
+</div></header>
+<main class="wrap">
+<div class="progressbox"><div class="progressrow"><span>回答の進み具合</span><span id="count">0 / 5</span></div><div class="track"><div class="bar" id="bar"></div></div></div>
+
+<section class="card">
+<div class="step">STEP 01</div><h2>どんなお客様に囲まれていたい？</h2>
+<p class="help">10年後、あなたの周りにいるお客様を想像して選んでください。（複数選択可）</p>
+<div class="options" data-group="customers">
+<label class="opt"><input type="checkbox" value="会話や雑談を楽しみに来てくれるお客様"><span>会話や雑談を楽しみに来てくれる</span></label>
+<label class="opt"><input type="checkbox" value="髪やプライベートの悩みを相談してくれるお客様"><span>髪やプライベートの悩みを相談してくれる</span></label>
+<label class="opt"><input type="checkbox" value="自分の技術やデザインを信頼して任せてくれるお客様"><span>技術やデザインを信頼して任せてくれる</span></label>
+<label class="opt"><input type="checkbox" value="長く通い続けてくれるお客様"><span>長く通い続けてくれる</span></label>
+<label class="opt"><input type="checkbox" value="自分に会うことを楽しみにしてくれるお客様"><span>自分に会うことを楽しみにしてくれる</span></label>
+<label class="opt"><input type="checkbox" value="新しい自分やスタイルに挑戦したいお客様"><span>新しい自分やスタイルに挑戦したい</span></label>
+</div><textarea id="customerOther" placeholder="ほかにも理想のお客様像があれば自由にどうぞ"></textarea>
+</section>
+
+<section class="card">
+<div class="step">STEP 02</div><h2>お客様から、どんな美容師だと思われたい？</h2>
+<p class="help">「またあなたにお願いしたい」と思ってもらえる理由を選んでみましょう。</p>
+<div class="options" data-group="reputation">
+<label class="opt"><input type="checkbox" value="話しやすく、何でも話せる"><span>話しやすく、何でも話せる</span></label>
+<label class="opt"><input type="checkbox" value="面白く、一緒にいると楽しい"><span>面白く、一緒にいると楽しい</span></label>
+<label class="opt"><input type="checkbox" value="悩みを理解し、的確なアドバイスをくれる"><span>悩みを理解し、的確なアドバイスをくれる</span></label>
+<label class="opt"><input type="checkbox" value="技術力が高く、安心して任せられる"><span>技術力が高く、安心して任せられる</span></label>
+<label class="opt"><input type="checkbox" value="似合うスタイルを提案してくれる"><span>似合うスタイルを提案してくれる</span></label>
+<label class="opt"><input type="checkbox" value="会うと元気になり、癒やされる"><span>会うと元気になり、癒やされる</span></label>
+<label class="opt"><input type="checkbox" value="自分のことをよく理解してくれる"><span>自分のことをよく理解してくれる</span></label>
+<label class="opt"><input type="checkbox" value="センスや世界観に憧れられる"><span>センスや世界観に憧れられる</span></label>
+</div><textarea id="reputationOther" placeholder="ほかに思い浮かぶイメージがあれば"></textarea>
+</section>
+
+<section class="card">
+<div class="step">STEP 03</div><h2>一緒に働く仲間から、どう思われたい？</h2>
+<p class="help">お客様だけでなく、チームの中での自分の存在も考えてみましょう。</p>
+<div class="options" data-group="team">
+<label class="opt"><input type="checkbox" value="困ったときに頼られる"><span>困ったときに頼られる</span></label>
+<label class="opt"><input type="checkbox" value="周りを明るくするムードメーカー"><span>周りを明るくするムードメーカー</span></label>
+<label class="opt"><input type="checkbox" value="技術や知識を教えられる"><span>技術や知識を教えられる</span></label>
+<label class="opt"><input type="checkbox" value="努力を続け、背中で示せる"><span>努力を続け、背中で示せる</span></label>
+<label class="opt"><input type="checkbox" value="後輩から憧れられる"><span>後輩から憧れられる</span></label>
+<label class="opt"><input type="checkbox" value="チームをまとめ、引っ張っていける"><span>チームをまとめ、引っ張っていける</span></label>
+<label class="opt"><input type="checkbox" value="一緒に働いていて楽しい"><span>一緒に働いていて楽しい</span></label>
+<label class="opt"><input type="checkbox" value="相手の変化に気づき、支えられる"><span>相手の変化に気づき、支えられる</span></label>
+</div>
+</section>
+
+<section class="card">
+<div class="step">STEP 04</div><h2>自分の好き・得意に近いものは？</h2>
+<p class="help">今できるかどうかではなく、「好き」「やってみたい」でもOKです。</p>
+<div class="options" data-group="strengths">
+<label class="opt"><input type="checkbox" value="人と話すこと"><span>人と話すこと</span></label>
+<label class="opt"><input type="checkbox" value="人の話を聞くこと"><span>人の話を聞くこと</span></label>
+<label class="opt"><input type="checkbox" value="人を笑わせること"><span>人を笑わせること</span></label>
+<label class="opt"><input type="checkbox" value="人の悩みを解決すること"><span>人の悩みを解決すること</span></label>
+<label class="opt"><input type="checkbox" value="技術を練習して追求すること"><span>技術を練習して追求すること</span></label>
+<label class="opt"><input type="checkbox" value="ファッションやデザインを考えること"><span>ファッションやデザインを考えること</span></label>
+<label class="opt"><input type="checkbox" value="人に喜んでもらうこと"><span>人に喜んでもらうこと</span></label>
+<label class="opt"><input type="checkbox" value="人に教えたり、支えたりすること"><span>人に教えたり、支えたりすること</span></label>
+</div><textarea id="strengthOther" placeholder="自分の好きなこと・得意なこと・大切にしたいこと"></textarea>
+</section>
+
+<section class="card">
+<div class="step">STEP 05</div><h2>まず、どんな自分を目指してみたい？</h2>
+<p class="help">今の時点で近いと思うものを選んでください。あとから変わっても大丈夫。</p>
+<div class="options" data-group="direction">
+<label class="opt"><input type="checkbox" value="会話や人柄で選ばれる美容師"><span>会話や人柄で選ばれる</span></label>
+<label class="opt"><input type="checkbox" value="カウンセリング力で信頼される美容師"><span>カウンセリング力で信頼される</span></label>
+<label class="opt"><input type="checkbox" value="高い技術力で選ばれる美容師"><span>高い技術力で選ばれる</span></label>
+<label class="opt"><input type="checkbox" value="デザインや提案力で魅了する美容師"><span>デザインや提案力で魅了する</span></label>
+<label class="opt"><input type="checkbox" value="居心地や癒やしを届ける美容師"><span>居心地や癒やしを届ける</span></label>
+<label class="opt"><input type="checkbox" value="仲間を育て、チームを成長させる美容師"><span>仲間を育て、チームを成長させる</span></label>
+</div>
+</section>
+
+<section class="card">
+<div class="step">LAST STEP</div><h2>理想に近づくための小さな一歩</h2>
+<p class="help">今月、まずやってみたいことを一つ書いてみましょう。</p>
+<textarea id="nextStep" placeholder="例：お客様との会話で、質問を一つ増やしてみる／毎日15分、苦手な技術を練習する"></textarea>
+<p class="help" style="margin-top:12px">最後に、名前（任意）</p>
+<input id="personName" type="text" placeholder="名前を入力">
+</section>
+
+<div class="actions"><button class="secondary" onclick="resetAll()">最初からやり直す</button><button class="primary" onclick="makeResult()">回答をまとめる →</button></div>
+
+<section class="card result" id="result">
+<div class="step">YOUR CAREER VISION</div><h2>あなたが目指したい美容師像</h2>
+<p class="help">選んだ答えをもとに、今のあなたの理想を文章にまとめました。</p>
+<div class="resultText" id="resultText"></div>
+<p class="note">これは今の回答から整理した「現時点の理想像」です。経験を重ねながら、いつでも更新していきましょう。</p>
+<div class="actions"><button class="secondary" onclick="window.print()">印刷・PDF保存</button><button class="primary" onclick="copyResult()">文章をコピー</button></div>
+</section>
+</main>
+<script>
+function selected(group){return [...document.querySelectorAll('[data-group="'+group+'"] input:checked')].map(x=>x.value)}
+function update(){
+ const groups=['customers','reputation','team','strengths','direction'];
+ const n=groups.filter(g=>selected(g).length>0).length;
+ document.getElementById('count').textContent=n+' / 5';
+ document.getElementById('bar').style.width=(n/5*100)+'%';
+}
+document.querySelectorAll('input[type=checkbox]').forEach(x=>x.addEventListener('change',update));
+function joined(a,other){let v=a.slice();if(other.trim())v.push(other.trim());return v.length?v.join('、'):'まだ探している途中'}
+function makeResult(){
+ const c=joined(selected('customers'),document.getElementById('customerOther').value);
+ const r=joined(selected('reputation'),document.getElementById('reputationOther').value);
+ const t=joined(selected('team'),'');
+ const s=joined(selected('strengths'),document.getElementById('strengthOther').value);
+ const d=joined(selected('direction'),'');
+ const step=document.getElementById('nextStep').value.trim()||'これから見つけていく';
+ const name=document.getElementById('personName').value.trim();
+ const lines=[
+ (name?name+'さんの':'あなたの')+'回答から、今の理想を整理してみました。',
+ '',
+ '【大切にしたいお客様との関係】',
+ '10年後は、'+c+'。そんなお客様との関係を築いていきたいと考えているようです。',
+ '',
+ '【お客様にとって、こんな美容師でありたい】',
+ 'お客様からは、'+r+'。そんな存在として覚えてもらえる美容師を目指したい。',
+ '',
+ '【チームの中では、こんな存在でありたい】',
+ '仲間からは、'+t+'。一緒に働く人にも良い影響を与えられる存在でありたい。',
+ '',
+ '【自分の好き・得意を活かす方向】',
+ '自分の「好き・得意」は、'+s+'。目指してみたい方向は、'+d+'。',
+ '',
+ '【今月の小さな一歩】',
+ step,
+ '',
+ '今の回答を一言でまとめると、「お客様にどんな価値を届け、周りの人とどんな関係を築く美容師になりたいか」を考え始めているところです。',
+ 'ここに書かれた内容が正解というわけではありません。先輩や教育担当者と話しながら、「なぜそう思った？」「こんな強みも活かせそうだね」と一緒に深めていきましょう。'
+ ];
+ document.getElementById('resultText').textContent=lines.join('\n');
+ document.getElementById('result').style.display='block';
+ document.getElementById('result').scrollIntoView({behavior:'smooth'});
+}
+function copyResult(){
+ const text=document.getElementById('resultText').textContent;
+ if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(()=>alert('まとめをコピーしました'))}
+ else{const el=document.createElement('textarea');el.value=text;document.body.appendChild(el);el.select();document.execCommand('copy');el.remove();alert('まとめをコピーしました')}
+}
+function resetAll(){document.querySelectorAll('input[type=checkbox]').forEach(x=>x.checked=false);document.querySelectorAll('textarea,input[type=text]').forEach(x=>x.value='');document.getElementById('result').style.display='none';update();window.scrollTo({top:0,behavior:'smooth'})}
+</script>
+</body></html>

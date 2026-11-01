@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
+<title>キャリアビジョン診断｜美容師1年目のあなたへ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: light;
+  --paper:#FBFAF8;
+  --white:#FFFFFF;
+  --beige:#EDE6DC;
+  --beige-deep:#D9CDBD;
+  --taupe:#9A8873;
+  --gray:#7A746D;
+  --ink:#2F2C29;
+  --line:#E3DDD5;
+  --sel:#F4EEE6;
+  --serif:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho","YuMincho",serif;
+  --sans:"Zen Kaku Gothic New","Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--paper);color:var(--ink);font-family:var(--sans);
+  font-size:17px;line-height:1.8;letter-spacing:.02em;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+  -webkit-tap-highlight-color:transparent;
+}
+.wrap{max-width:560px;margin:0 auto;padding:0 20px 140px}
+
+/* header / progress */
+.top{position:sticky;top:0;z-index:20;background:rgba(251,250,248,.94);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px);margin-top:calc(-1 * env(safe-area-inset-top,0px))}
+.top-inner{max-width:560px;margin:0 auto;padding:12px 20px 14px}
+.top-row{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;color:var(--gray)}
+.top-row strong{font-family:var(--serif);font-weight:600;color:var(--ink);font-size:15px}
+.bar{height:6px;background:var(--beige);border-radius:3px;margin-top:8px;overflow:hidden}
+.bar span{display:block;height:100%;width:0;background:var(--taupe);border-radius:3px;transition:width .35s ease}
+.top.hidden{display:none}
+
+/* intro */
+.intro{padding:56px 0 24px}
+.intro .for{font-size:14px;color:var(--taupe);margin-bottom:20px}
+.intro h1{font-family:var(--serif);font-weight:600;font-size:34px;line-height:1.45;letter-spacing:.06em;margin-bottom:28px}
+.intro p{color:#4E4943;margin-bottom:14px}
+.intro-list{margin:28px 0 36px;border-top:1px solid var(--line)}
+.intro-list li{list-style:none;display:flex;gap:16px;padding:14px 2px;border-bottom:1px solid var(--line);font-size:16px}
+.intro-list li span{font-family:var(--serif);color:var(--taupe);min-width:1.6em}
+.note{font-size:13px;color:var(--gray);margin-top:18px;line-height:1.7}
+
+/* step */
+.step{display:none;padding-top:32px}
+.step.active{display:block}
+.step-no{font-family:var(--serif);color:var(--taupe);font-size:15px;margin-bottom:6px}
+.step h2{font-family:var(--serif);font-weight:600;font-size:25px;line-height:1.55;margin-bottom:10px}
+.hint{font-size:15px;color:var(--gray);margin-bottom:22px}
+.opts{display:grid;gap:10px}
+.opt{
+  display:flex;align-items:center;gap:14px;width:100%;text-align:left;
+  font:inherit;font-size:17px;color:var(--ink);line-height:1.55;
+  background:var(--white);border:1.5px solid var(--line);border-radius:14px;
+  padding:16px 16px;min-height:60px;cursor:pointer;transition:border-color .15s,background .15s;
+}
+.opt .box{flex:0 0 24px;height:24px;border-radius:7px;border:1.5px solid var(--beige-deep);display:grid;place-items:center;transition:all .15s}
+.opt .box svg{width:14px;height:14px;opacity:0}
+.opt[aria-pressed="true"]{background:var(--sel);border-color:var(--taupe)}
+.opt[aria-pressed="true"] .box{background:var(--taupe);border-color:var(--taupe)}
+.opt[aria-pressed="true"] .box svg{opacity:1}
+.opt:focus-visible,.btn:focus-visible,textarea:focus-visible,input:focus-visible,.goal-text:focus-visible{outline:2px solid var(--taupe);outline-offset:2px}
+.opt small{display:block;font-size:13.5px;color:var(--gray);margin-top:2px}
+.count{font-size:13px;color:var(--gray);margin-top:14px;text-align:right}
+
+label.field{display:block;font-size:15px;font-weight:500;margin:26px 0 8px}
+label.field em{font-style:normal;font-size:12.5px;color:var(--gray);font-weight:400;margin-left:6px}
+input[type=text],textarea{
+  width:100%;font:inherit;font-size:17px;color:var(--ink);background:var(--white);
+  border:1.5px solid var(--line);border-radius:12px;padding:14px;line-height:1.6;
+  -webkit-appearance:none;appearance:none;
+}
+textarea{min-height:110px;resize:vertical}
+input::placeholder,textarea::placeholder{color:#B3ABA1}
+
+/* nav */
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:20;background:rgba(251,250,248,.96);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-top:1px solid var(--line);
+  padding:12px 0 calc(12px + env(safe-area-inset-bottom,0px))}
+.nav-inner{max-width:560px;margin:0 auto;padding:0 20px;display:flex;gap:10px}
+.btn{font:inherit;font-size:16px;font-weight:500;border-radius:999px;padding:15px 20px;cursor:pointer;border:1.5px solid var(--ink);min-height:54px}
+.btn.primary{background:var(--ink);color:#fff;flex:1}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--beige-deep);min-width:96px}
+.btn.big{width:100%;font-size:17px}
+.nav.hidden{display:none}
+
+/* result */
+.result{display:none;padding-top:40px}
+.result.active{display:block}
+.r-head{padding-bottom:28px;border-bottom:1px solid var(--line);margin-bottom:8px}
+.r-head .for{font-size:14px;color:var(--taupe);margin-bottom:12px}
+.r-head h2{font-family:var(--serif);font-weight:600;font-size:28px;line-height:1.5;letter-spacing:.04em}
+.r-head .date{font-size:13px;color:var(--gray);margin-top:10px}
+.vision{margin:28px 0 8px;padding:28px 22px;background:var(--white);border:1px solid var(--line);border-radius:4px;position:relative}
+.vision::before{content:"";position:absolute;left:0;top:22px;bottom:22px;width:3px;background:var(--taupe)}
+.vision .lbl{font-size:13px;color:var(--taupe);margin-bottom:10px}
+.vision p{font-family:var(--serif);font-size:20px;line-height:1.9;font-weight:500}
+.sec{padding:26px 0;border-bottom:1px solid var(--line)}
+.sec h3{font-family:var(--serif);font-weight:600;font-size:19px;margin-bottom:12px;display:flex;gap:12px;align-items:baseline}
+.sec h3 span{color:var(--taupe);font-size:15px}
+.sec p{margin-bottom:10px;color:#3E3A36}
+.sec p:last-child{margin-bottom:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 14px}
+.chip{background:var(--beige);border-radius:999px;padding:6px 14px;font-size:15px}
+.acts{list-style:none;counter-reset:a}
+.acts li{counter-increment:a;position:relative;padding:10px 0 10px 40px;border-top:1px dashed var(--line)}
+.acts li:first-child{border-top:none}
+.acts li::before{content:counter(a);position:absolute;left:0;top:10px;width:26px;height:26px;border-radius:50%;background:var(--beige);font-size:14px;display:grid;place-items:center;font-family:var(--serif)}
+.goals{margin-top:34px}
+.goals h3{font-family:var(--serif);font-weight:600;font-size:22px;margin-bottom:6px}
+.goals .hint{margin-bottom:18px}
+.goal{display:grid;grid-template-columns:72px 1fr;gap:12px;padding:14px 0;border-top:1px solid var(--line)}
+.goal:last-child{border-bottom:1px solid var(--line)}
+.goal .when{font-family:var(--serif);font-weight:600;font-size:17px;color:var(--taupe);padding-top:6px}
+.goal-text{min-height:44px;padding:8px 10px;border-radius:8px;background:var(--white);border:1px solid var(--line);font-size:16px;line-height:1.7;white-space:pre-wrap}
+.goal-text:empty::before{content:attr(data-ph);color:#B3ABA1}
+.msg{margin-top:28px;padding:20px;background:var(--beige);border-radius:4px}
+.msg .lbl{font-size:13px;color:var(--gray);margin-bottom:6px}
+.actions{display:grid;gap:10px;margin-top:36px}
+.actions .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.actions .btn{width:100%}
+.restart{margin-top:26px;text-align:center}
+.restart button{background:none;border:none;font:inherit;font-size:14px;color:var(--gray);text-decoration:underline;cursor:pointer;padding:10px}
+.toast{position:fixed;left:50%;bottom:calc(30px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);
+  background:var(--ink);color:#fff;font-size:14px;padding:12px 20px;border-radius:999px;opacity:0;pointer-events:none;transition:all .25s;z-index:50;max-width:90vw;text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.pdf-tip{display:none;margin-top:12px;font-size:13.5px;color:var(--gray);background:var(--white);border:1px solid var(--line);border-radius:10px;padding:12px 14px;line-height:1.7}
+.pdf-tip.show{display:block}
+
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+
+@media print{
+  @page{margin:14mm}
+  body{background:#fff;font-size:12pt;padding:0}
+  .top,.nav,.actions,.restart,.toast,.pdf-tip,#intro,.step{display:none!important}
+  .wrap{max-width:none;padding:0}
+  .result{display:block!important;padding-top:0}
+  .sec,.goal,.vision{break-inside:avoid}
+  .goal-text{border:none;padding:0}
+  .goal-text:empty::before{content:""}
+}
+</style>
+</head>
+<body>
+
+<header class="top hidden" id="top">
+  <div class="top-inner">
+    <div class="top-row"><strong id="stepLabel">STEP 1 / 6</strong><span id="doneLabel">回答済み 0 / 6</span></div>
+    <div class="bar" aria-hidden="true"><span id="barFill"></span></div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section id="intro" class="intro">
+    <p class="for">美容師1年目のあなたへ</p>
+    <h1>10年後の自分を、<br>少しだけ想像してみる。</h1>
+    <p>「将来どんな美容師になりたい？」と聞かれても、すぐには答えられなくて大丈夫です。</p>
+    <p>いくつかの質問に、直感で「いいな」と思うものを選んでください。最後に、あなたの回答をもとにキャリアビジョンを文章にまとめます。</p>
+    <ul class="intro-list">
+      <li><span>1</span>10年後、どんなお客様に囲まれていたい？</li>
+      <li><span>2</span>お客様からどう思われたい？</li>
+      <li><span>3</span>チームの中でどんな存在でいたい？</li>
+      <li><span>4</span>好きなこと・得意なこと</li>
+      <li><span>5</span>目指したい美容師のタイプ</li>
+      <li><span>6</span>今月の挑戦とメッセージ</li>
+    </ul>
+    <button class="btn primary big" type="button" id="startBtn">診断をはじめる</button>
+    <p class="note">所要時間は5分ほどです。答えはこの端末の中だけで使われ、どこにも送信されません。</p>
+  </section>
+
+  <div id="steps"></div>
+
+  <section id="result" class="result" aria-live="polite"></section>
+
+</main>
+
+<nav class="nav hidden" id="nav">
+  <div class="nav-inner">
+    <button class="btn ghost" type="button" id="backBtn">戻る</button>
+    <button class="btn primary" type="button" id="nextBtn">次へ</button>
+  </div>
+</nav>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+"use strict";
+
+/* ===== 質問データ ===== */
+var Q = [
+  {
+    key:"customers", title:"10年後、どんなお客様に囲まれていたい？",
+    hint:"「こうなったらうれしいな」と思うものを、いくつでも選んでください。",
+    opts:[
+      {t:"自分に会うことを楽しみに来てくれるお客様", p:"あなたに会うことを楽しみに来てくれる", v:["つながり","人柄"]},
+      {t:"髪の悩みを何でも相談してくれるお客様", p:"髪の悩みを何でも相談してくれる", v:["寄り添い","信頼"]},
+      {t:"施術だけでなく会話を楽しみに来てくれるお客様", p:"会話の時間も楽しみにしてくれる", v:["つながり","心地よさ"]},
+      {t:"長年ずっと通い続けてくれるお客様", p:"長い年月を一緒に重ねていける", v:["継続","信頼"]},
+      {t:"自分の技術やセンスを信頼してくれるお客様", p:"技術やセンスを信頼して任せてくれる", v:["技術","センス"]},
+      {t:"年齢や性別を問わず幅広いお客様", p:"年齢や性別を問わない幅広い", v:["幅広さ"]},
+      {t:"自分の考え方や人柄を好きになってくれるお客様", p:"あなたの考え方や人柄を好きになってくれる", v:["人柄","自分らしさ"]}
+    ]
+  },
+  {
+    key:"impression", title:"お客様から、どんな美容師だと思われたい？",
+    hint:"お客様に言われたらうれしい言葉を選んでください。いくつでもOKです。",
+    opts:[
+      {t:"話しているだけで楽しい", v:["楽しさ","つながり"]},
+      {t:"何でも相談できる", v:["寄り添い","信頼"]},
+      {t:"的確なアドバイスをくれる", v:["提案力","信頼"]},
+      {t:"技術力が高くて安心できる", v:["技術","安心感"]},
+      {t:"センスが良くておしゃれ", v:["センス"]},
+      {t:"自分に似合う髪型を提案してくれる", v:["提案力","センス"]},
+      {t:"居心地が良くて落ち着く", v:["心地よさ","安心感"]},
+      {t:"自分のことを理解してくれる", v:["寄り添い"]},
+      {t:"信頼して髪を任せられる", v:["信頼","技術"]}
+    ]
+  },
+  {
+    key:"team", title:"チームメイトから、どんな存在だと思われたい？",
+    hint:"先輩・同期・後輩から、こう思われたらうれしいと思うものを選んでください。",
+    opts:[
+      {t:"困ったときに頼りになる人", v:["支え合い"], n:"周りの人が困っているときに力になりたい"},
+      {t:"周りを明るくできる人", v:["明るさ"], n:"サロンの空気を明るくしたい"},
+      {t:"技術を教えてあげられる人", v:["育てる力","技術"], n:"自分の技術を人に伝えたい"},
+      {t:"仕事が丁寧で信頼できる人", v:["丁寧さ","信頼"], n:"一つひとつの仕事を丁寧に積み重ねたい"},
+      {t:"周りをよく見て行動できる人", v:["気配り"], n:"周りに目を配って動ける人でいたい"},
+      {t:"目標に向かって努力し続ける人", v:["成長"], n:"目標に向かって努力を続けたい"},
+      {t:"後輩から憧れられる人", v:["憧れ","成長"], n:"後輩の目標になれる存在でいたい"},
+      {t:"チームを引っ張っていける人", v:["リーダーシップ"], n:"チームを前に進める役割にも挑戦したい"},
+      {t:"一緒に働いていて楽しい人", v:["明るさ","支え合い"], n:"一緒に働く時間を楽しいものにしたい"}
+    ]
+  },
+  {
+    key:"likes", title:"あなたの好きなこと・得意なことは？",
+    hint:"美容のことでなくても大丈夫です。当てはまるものを選んでください。",
+    free:true,
+    opts:[
+      {t:"人と話すことが好き", s:"お客様がリラックスできる時間をつくる力につながります", v:["つながり"]},
+      {t:"人を笑顔にすることが好き", s:"サロンの空気をあたたかくする力になります", v:["明るさ"]},
+      {t:"細かい作業が得意", s:"美しい仕上がりや丁寧な技術を支える土台になります", v:["丁寧さ","技術"]},
+      {t:"ファッションや美容が好き", s:"お客様に似合うスタイルを提案するときのアイデアの源になります", v:["センス"]},
+      {t:"人の相談に乗ることが好き", s:"お客様の悩みに寄り添うカウンセリングに活かせます", v:["寄り添い"]},
+      {t:"ものを作ることが好き", s:"ヘアスタイルという作品をつくる楽しさにつながっています", v:["センス","技術"]},
+      {t:"人を喜ばせることが好き", s:"「また来たい」と思ってもらえる接客の原動力になります", v:["つながり","心地よさ"]},
+      {t:"新しいことに挑戦するのが好き", s:"新しい技術やトレンドをどんどん吸収していく力になります", v:["成長"]},
+      {t:"コツコツ努力することが得意", s:"技術を一歩ずつ確実に身につけていく力になります", v:["成長","丁寧さ"]}
+    ]
+  },
+  {
+    key:"types", title:"どんな美容師を目指したい？",
+    hint:"「ちょっと気になる」と思うタイプを選んでください。複数選んでもかまいません。",
+    opts:[
+      {t:"技術を極めるスペシャリストタイプ", d:"得意な技術をとことん磨く", v:["技術"],
+        img:"ひとつの技術を深く磨き、「この技術ならあの人に」と指名される",
+        y10:"得意な技術で指名され、「この技術ならあの人」と言われる美容師になっている",
+        y5:"カット・カラーなどの中から自分の専門分野を決め、深く学んでいる",
+        y3:"スタイリストとしてお客様を担当し、得意な技術を少しずつ形にしている",
+        y1:"基礎技術の練習を積み重ね、練習のチェックに一つずつ合格していく",
+        a:["練習の前に「今日できるようになりたいポイント」を1つだけ決める","上手な先輩の施術を見て、気づいたことを1日1つメモする"]},
+      {t:"お客様との関係性を大切にする接客タイプ", d:"一人ひとりと長く付き合う", v:["つながり","信頼"],
+        img:"お客様一人ひとりとの関係を大切にし、長く信頼される",
+        y10:"「あなたがいるから通っている」と言ってくれるお客様に囲まれている",
+        y5:"カウンセリングに自信を持ち、リピーターのお客様を多く担当している",
+        y3:"お客様の話をじっくり聞き、安心して任せてもらえる施術をしている",
+        y1:"シャンプーやアシスタント業務で、お客様に心地よい時間を届けられるようになる",
+        a:["担当したお客様のお名前と、会話で聞いたことを1つ覚えておく","シャンプー中に、お湯加減や力加減を自分から確認する"]},
+      {t:"トレンドやセンスを追求するクリエイタータイプ", d:"新しいスタイルを生み出す", v:["センス"],
+        img:"トレンドを取り入れながら、お客様の新しい魅力を引き出すスタイルを生み出す",
+        y10:"センスとアイデアで、お客様の新しい魅力を引き出せる美容師になっている",
+        y5:"作品撮りやSNSなどで、自分らしいスタイルを発信している",
+        y3:"トレンドを取り入れた提案で、お客様に喜んでもらえている",
+        y1:"好きなヘアスタイルを集めて、「なぜ似合うのか」を考える習慣がついている",
+        a:["気になるヘアスタイルの写真を毎日1枚保存し、どこが素敵か言葉にしてみる","街やSNSで見つけたトレンドを、週に1回まとめてみる"]},
+      {t:"周囲から信頼されるリーダータイプ", d:"チームをよい方向へ導く", v:["リーダーシップ","信頼"],
+        img:"周りから信頼され、チームをよい方向へ導いていく",
+        y10:"スタッフからもお客様からも信頼され、チームを前に進められる存在になっている",
+        y5:"お店の中心メンバーとして、チームづくりに関わっている",
+        y3:"後輩の相談に乗りながら、チームの目標づくりに参加している",
+        y1:"任された役割を最後までやりきり、周りから任される場面を増やしている",
+        a:["朝礼や終礼で、気づいたことを1つ自分から伝えてみる","頼まれたことは「いつまでに」を確認し、終わったら必ず報告する"]},
+      {t:"人を育てる教育者タイプ", d:"後輩の成長を支える", v:["育てる力","成長"],
+        img:"自分が学んだことを人に伝え、後輩の成長を支える",
+        y10:"後輩の成長を支え、「この人に教わりたい」と思われる美容師になっている",
+        y5:"アシスタントの練習を見るなど、技術を教える役割を担当している",
+        y3:"自分の経験を後輩に伝えながら、一緒に成長している",
+        y1:"教わったことをノートにまとめ、自分の言葉で説明できるようになっている",
+        a:["その日に教わったことを、寝る前に3行でノートにまとめる","同期と、練習で気づいたことを教え合ってみる"]},
+      {t:"幅広い技術を身につけるオールラウンダータイプ", d:"どんな要望にも応えられる", v:["幅広さ","技術"],
+        img:"幅広い技術を身につけ、どんなお客様の要望にも応えられる",
+        y10:"どんな要望にも応えられ、幅広いお客様から頼られる美容師になっている",
+        y5:"カット・カラー・パーマ・ケアなど、幅広いメニューを担当している",
+        y3:"スタイリストとして、さまざまなメニューを経験している",
+        y1:"アシスタント業務をひと通り任せてもらえるようになっている",
+        a:["まだ経験の少ない業務を1つ選び、先輩にコツを聞いてみる","その日にできた業務を、チェックリストにつけていく"]},
+      {t:"自分らしい個性を発揮する個性派タイプ", d:"自分にしか出せない魅力で選ばれる", v:["自分らしさ"],
+        img:"自分らしい個性を活かし、自分にしか出せない魅力で選ばれる",
+        y10:"自分らしさが伝わり、その個性に惹かれたお客様に選ばれる美容師になっている",
+        y5:"自分らしいスタイルや得意分野が、周りに伝わるようになっている",
+        y3:"自分らしさを活かした提案や接客で、ファンになってくれるお客様がいる",
+        y1:"自分の好きなもの・得意なことを言葉にして、周りに伝えられるようになっている",
+        a:["自分が「好き」と感じたものを、1週間メモしてみる","「自分らしい」と思える接客や言葉づかいを1つ見つける"]}
+    ]
+  }
+];
+
+var VALUE_TEXT = {
+  "つながり":"お客様との心のつながり",
+  "信頼":"「この人なら大丈夫」と思ってもらえる信頼",
+  "技術":"お客様を満足させられる確かな技術",
+  "センス":"お客様の魅力を引き出すセンス",
+  "寄り添い":"相手の気持ちに寄り添うこと",
+  "心地よさ":"一緒にいて心地よい時間をつくること",
+  "安心感":"お客様が安心して過ごせること",
+  "楽しさ":"楽しい時間を一緒に過ごすこと",
+  "提案力":"その人に合ったものを提案すること",
+  "人柄":"自分の人柄で信頼を得ること",
+  "自分らしさ":"自分らしさを大切にすること",
+  "継続":"長く続いていく関係",
+  "幅広さ":"どんな人にも開かれた姿勢",
+  "支え合い":"仲間と支え合うこと",
+  "明るさ":"周りを明るくすること",
+  "育てる力":"人の成長を支えること",
+  "丁寧さ":"一つひとつを丁寧に積み重ねること",
+  "気配り":"周りをよく見て気を配ること",
+  "成長":"努力を続けて成長していくこと",
+  "憧れ":"誰かの目標になれること",
+  "リーダーシップ":"チームを前に進めること"
+};
+
+/* ===== 状態 ===== */
+var state = { customers:[], impression:[], team:[], likes:[], types:[], likesFree:"", name:"", challenge:"", message:"" };
+var TOTAL = 6;          // 質問5 + 最終入力1
+var cur = 0;            // 0=イントロ, 1..6=ステップ, 7=結果
+
+var $ = function(id){ return document.getElementById(id); };
+function esc(s){ return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];}); }
+var CHECK = '<svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.2l3 3 6-6.4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+/* ===== ステップ描画 ===== */
+function buildSteps(){
+  var html = "";
+  Q.forEach(function(q, i){
+    html += '<section class="step" id="step'+(i+1)+'" aria-labelledby="h'+(i+1)+'">';
+    html += '<p class="step-no">STEP '+(i+1)+'</p>';
+    html += '<h2 id="h'+(i+1)+'">'+esc(q.title)+'</h2><p class="hint">'+esc(q.hint)+'</p>';
+    html += '<div class="opts" role="group" aria-labelledby="h'+(i+1)+'">';
+    q.opts.forEach(function(o, j){
+      html += '<button type="button" class="opt" aria-pressed="false" data-k="'+q.key+'" data-i="'+j+'">'
+           + '<span class="box">'+CHECK+'</span><span>'+esc(o.t)+(o.d?'<small>'+esc(o.d)+'</small>':'')+'</span></button>';
+    });
+    html += '</div><p class="count" id="count-'+q.key+'">まだ選んでいません</p>';
+    if(q.free){
+      html += '<label class="field" for="likesFree">ほかにも好きなこと・得意なことがあれば<em>自由記述・任意</em></label>'
+           + '<textarea id="likesFree" placeholder="例：絵を描くこと、料理、人の話を聞くこと など"></textarea>';
+    }
+    html += '</section>';
+  });
+  html += '<section class="step" id="step6" aria-labelledby="h6">'
+       + '<p class="step-no">STEP 6</p><h2 id="h6">最後に、少しだけ書いてみましょう</h2>'
+       + '<p class="hint">短くても大丈夫です。書かなくても結果は見られます。</p>'
+       + '<label class="field" for="inName">名前<em>任意</em></label>'
+       + '<input type="text" id="inName" autocomplete="off" placeholder="例：さくら">'
+       + '<label class="field" for="inChallenge">今月、挑戦してみたいこと</label>'
+       + '<textarea id="inChallenge" placeholder="例：ワインディングのタイムを5分縮める／お客様に自分から話しかける"></textarea>'
+       + '<label class="field" for="inMessage">自由メッセージ<em>任意</em></label>'
+       + '<textarea id="inMessage" placeholder="今の気持ち、不安なこと、未来の自分へのひとことなど"></textarea>'
+       + '</section>';
+  $("steps").innerHTML = html;
+}
+
+function updateCount(key){
+  var n = state[key].length, el = $("count-"+key);
+  if(el) el.textContent = n ? n+"個 選んでいます" : "まだ選んでいません";
+}
+
+/* ===== 進捗 ===== */
+function answeredCount(){
+  var c = 0;
+  if(state.customers.length) c++;
+  if(state.impression.length) c++;
+  if(state.team.length) c++;
+  if(state.likes.length || state.likesFree.trim()) c++;
+  if(state.types.length) c++;
+  if(state.challenge.trim()) c++;
+  return c;
+}
+function updateProgress(){
+  var a = answeredCount();
+  $("barFill").style.width = (a / TOTAL * 100) + "%";
+  $("doneLabel").textContent = "回答済み " + a + " / " + TOTAL;
+  if(cur >= 1 && cur <= TOTAL) $("stepLabel").textContent = "STEP " + cur + " / " + TOTAL;
+}
+
+/* ===== 画面切替 ===== */
+function show(n){
+  cur = n;
+  $("intro").style.display = n === 0 ? "" : "none";
+  for(var i=1;i<=TOTAL;i++){ $("step"+i).classList.toggle("active", i===n); }
+  $("result").classList.toggle("active", n === TOTAL+1);
+  $("top").classList.toggle("hidden", !(n>=1 && n<=TOTAL));
+  $("nav").classList.toggle("hidden", !(n>=1 && n<=TOTAL));
+  $("nextBtn").textContent = n === TOTAL ? "あなたのキャリアビジョンをまとめる" : "次へ";
+  updateProgress();
+  window.scrollTo(0,0);
+}
+
+/* ===== 文章生成ヘルパー ===== */
+function pick(key){ var q = Q.filter(function(x){return x.key===key;})[0]; return state[key].map(function(i){return q.opts[i];}); }
+function quoteJoin(arr){ return arr.map(function(s){return "「"+s+"」";}).join(""); }
+function listJoin(arr){
+  if(arr.length<=1) return arr.join("");
+  return arr.slice(0,-1).join("、") + "、そして" + arr[arr.length-1];
+}
+function topValues(){
+  var score = {}, order = [];
+  ["customers","impression","team","likes","types"].forEach(function(k){
+    var w = k==="types" ? 2 : 1;
+    pick(k).forEach(function(o){
+      o.v.forEach(function(v){
+        if(!(v in score)){ score[v]=0; order.push(v); }
+        score[v]+=w;
+      });
+    });
+  });
+  return order.slice().sort(function(a,b){ return score[b]-score[a] || order.indexOf(a)-order.indexOf(b); }).slice(0,3);
+}
+
+/* ===== 診断結果の生成 ===== */
+function generate(){
+  var name = state.name.trim();
+  var you = name ? esc(name)+"さん" : "あなた";
+  var cus = pick("customers"), imp = pick("impression"), team = pick("team"), likes = pick("likes"), types = pick("types");
+  var vals = topValues();
+  var free = state.likesFree.trim(), challenge = state.challenge.trim(), message = state.message.trim();
+  var nothing = !cus.length && !imp.length && !team.length && !likes.length && !types.length && !free;
+
+  // 1. 価値観
+  var s1;
+  if(vals.length){
+    s1 = '<div class="chips">'+vals.map(function(v){return '<span class="chip">'+esc(v)+'</span>';}).join("")+'</div>'
+       + '<p>'+you+'の回答からは、'+esc(listJoin(vals.map(function(v){return VALUE_TEXT[v]||v;})))+'を大切にしたいという思いが感じられます。</p>'
+       + '<p>これらは、これから美容師として迷ったときに立ち返る「軸」になっていくものかもしれません。</p>';
+  } else {
+    s1 = '<p>今回は選択がなかったため、価値観はまだ言葉にしていません。答えが見つからないのは、これから見つけていく途中だからです。気になる選択肢が出てきたら、もう一度診断してみてください。</p>';
+  }
+
+  // 2. お客様との関係
+  var s2 = "";
+  if(cus.length){
+    s2 += '<p>10年後の'+you+'は、'+esc(quoteJoin(cus.slice(0,3).map(function(o){return o.p+"お客様";})))+'に囲まれている姿を思い描いています。</p>';
+  }
+  if(imp.length){
+    s2 += '<p>お客様からは'+esc(quoteJoin(imp.slice(0,4).map(function(o){return o.t;})))+'と感じてもらえる美容師でありたい、という気持ちが伝わってきます。</p>';
+  }
+  if(cus.length && imp.length){
+    s2 += '<p>髪を切る時間だけでなく、お店に来るまでの気持ちや帰り道の気分まで含めて、お客様との関係を大切にしたい——そんな思いがあるのではないでしょうか。</p>';
+  }
+  if(!s2) s2 = '<p>お客様との理想の関係は、これから現場でたくさんのお客様と出会う中で見えてくるはずです。「この先輩とお客様の関係、素敵だな」と感じた瞬間を覚えておいてください。</p>';
+
+  // 3. チーム
+  var s3;
+  if(team.length){
+    s3 = '<p>チームの中では'+esc(quoteJoin(team.slice(0,4).map(function(o){return o.t;})))+'でありたいと考えています。</p>';
+    var notes = team.slice(0,2).map(function(o){return o.n;});
+    s3 += '<p>'+esc(notes.join("、"))+'——そんな気持ちを持っていることが、あなたの回答から伝わってきます。</p>';
+  } else {
+    s3 = '<p>チームの中での役割は、今はまだ考えなくても大丈夫です。まずは周りの先輩を見て、「こういう人になりたい」と思える人を探してみましょう。</p>';
+  }
+
+  // 4. 強み・可能性
+  var s4 = "";
+  if(likes.length){
+    likes.slice(0,4).forEach(function(o){ s4 += '<p>「'+esc(o.t)+'」という気持ちは、'+esc(o.s)+'。</p>'; });
+  }
+  if(free){ s4 += '<p>また、「'+esc(free)+'」と書いてくれたことも、'+you+'らしさを表す大切なヒントです。美容師の仕事のどこで活かせるか、ぜひ考えてみてください。</p>'; }
+  if(!s4) s4 = '<p>好きなことや得意なことは、まだ言葉にならなくても大丈夫です。仕事の中で「時間を忘れて取り組めた」と感じたことがあれば、それがあなたの強みのヒントになります。</p>';
+
+  // 5. 目指したい美容師像（中心メッセージ）
+  var vision;
+  if(types.length){
+    var imgs = types.slice(0,2).map(function(o){return o.img;});
+    vision = you+'が目指したいのは、'+esc(imgs.length>1 ? imgs[0]+'ような、そして'+imgs[1]+'ような' : imgs[0])+'美容師ではないでしょうか。';
+    if(vals.length>=2) vision += 'その根っこには、「'+esc(vals[0])+'」と「'+esc(vals[1])+'」を大切にする気持ちがあります。';
+  } else if(imp.length){
+    vision = you+'が目指したいのは、お客様から'+esc(quoteJoin(imp.slice(0,2).map(function(o){return o.t;})))+'と思ってもらえる美容師ではないでしょうか。';
+  } else if(cus.length){
+    vision = you+'が目指したいのは、'+esc(cus[0].p)+'お客様に囲まれる美容師ではないでしょうか。';
+  } else {
+    vision = 'まだはっきりした答えがなくても大丈夫。'+you+'が目指したい美容師像は、これからの毎日の中で少しずつ形になっていきます。';
+  }
+  var s5 = '<p>'+(types.length ? '選んでくれたタイプは '+esc(types.map(function(o){return o.t.replace("タイプ","");}).join("・"))+' です。' : '')
+         + (types.length>1 ? 'ひとつに絞る必要はありません。いくつもの「なりたい」を持っていることは、それだけ可能性が広いということです。' : '')
+         + (types.length===1 ? 'ひとつの方向が見えていることは、毎日の練習の目的をはっきりさせてくれます。' : '')
+         + (types.length ? '' : 'タイプはまだ選ばれていません。気になるタイプが見つかったら、もう一度診断してみてください。')+'</p>';
+
+  // 6. 10年後
+  var parts = [];
+  if(cus.length) parts.push(esc(cus[0].p)+'お客様に囲まれ');
+  if(imp.length) parts.push('「'+esc(imp[0].t)+'」と言ってもらいながら');
+  if(team.length) parts.push('サロンでは「'+esc(team[0].t)+'」として信頼されている');
+  var s6;
+  if(parts.length){
+    var line = parts.join("、");
+    if(!team.length) line += '働いている';
+    s6 = '<p>10年後の'+you+'は、'+line+'——そんな姿が思い浮かびます。</p>';
+    if(types.length) s6 += '<p>'+esc(types[0].y10)+'。それが、今のあなたの回答から見える10年後の理想です。</p>';
+  } else if(types.length){
+    s6 = '<p>'+esc(types[0].y10)+'。それが、今のあなたの回答から見える10年後の理想です。</p>';
+  } else {
+    s6 = '<p>10年後の姿は、今決めなくても大丈夫です。この1年でたくさんのお客様や先輩と出会うことで、少しずつ見えてきます。</p>';
+  }
+
+  // 7. 今月からの行動
+  var acts = [];
+  if(challenge) acts.push('今月の挑戦「'+challenge+'」を、毎日少しでも続ける');
+  types.forEach(function(o){ if(acts.length<4) acts.push(o.a[0]); });
+  if(acts.length<4 && types[0]) acts.push(types[0].a[1]);
+  if(acts.length<2) acts.push('素敵だと思った先輩の言葉や動きを、1日1つメモする');
+  if(acts.length<3) acts.push('1日の終わりに「今日できたこと」を1つ書き出す');
+  var s7 = '<ol class="acts">'+acts.map(function(a){return '<li>'+esc(a)+'</li>';}).join("")+'</ol>';
+
+  // 目標設定
+  var t0 = types[0], t1 = types[1];
+  function g(key){ if(!t0) return ""; return t0[key] + (t1 ? "\n" + t1[key] : ""); }
+
+  var today = new Date();
+  var dateStr = today.getFullYear()+"年"+(today.getMonth()+1)+"月"+today.getDate()+"日";
+
+  var html = ''
+    + '<div class="r-head"><p class="for">'+(name ? esc(name)+'さんの' : '')+'キャリアビジョン</p>'
+    + '<h2>あなたが目指したい美容師像は、<br>こういうことではないでしょうか。</h2>'
+    + '<p class="date">'+dateStr+'</p></div>'
+    + '<div class="vision"><p class="lbl">あなたが目指したい美容師像</p><p>'+vision+'</p></div>'
+    + sec(1,"あなたが大切にしたい価値観",s1)
+    + sec(2,"お客様との理想的な関係性",s2)
+    + sec(3,"チームの中で目指したい存在",s3)
+    + sec(4,"あなたの強みや可能性",s4)
+    + sec(5,"あなたが目指したい美容師像",'<p>'+vision+'</p>'+s5)
+    + sec(6,"10年後の理想の姿",s6)
+    + sec(7,"今月から始められる具体的な行動",s7)
+    + '<div class="goals"><h3>目標を書いてみよう</h3>'
+    + '<p class="hint">回答をもとに例を入れています。タップして、自分の言葉に書き換えてください。</p>'
+    + goal("10年後","y10",g("y10"),"どんな美容師になっていたい？")
+    + goal("5年後","y5",g("y5"),"どんな技術・経験を身につけていたい？")
+    + goal("3年後","y3",g("y3"),"どんな仕事を任されていたい？")
+    + goal("1年後","y1",g("y1"),"どんな成長をしていたい？")
+    + goal("今月","m",challenge || (acts[0]||""),"何に挑戦する？")
+    + '</div>'
+    + (message ? '<div class="msg"><p class="lbl">あなたのメッセージ</p><p>'+esc(message).replace(/\n/g,"<br>")+'</p></div>' : '')
+    + (nothing ? '<p class="note">今回はほとんど選択がなかったため、一般的な内容を表示しています。気になる選択肢を選んでもう一度試すと、あなたに合わせた文章になります。</p>' : '')
+    + '<div class="actions">'
+    + '<button class="btn primary big" type="button" id="copyBtn">結果をコピーする</button>'
+    + '<div class="row"><button class="btn ghost" type="button" id="printBtn">印刷する</button>'
+    + '<button class="btn ghost" type="button" id="pdfBtn">PDFで保存</button></div>'
+    + '<p class="pdf-tip" id="pdfTip">印刷画面が開いたら、送信先（プリンター）で「PDFとして保存」を選んでください。iPhoneでは、印刷画面のプレビューを2本指で広げると PDF になり、共有ボタンから「ファイルに保存」できます。</p>'
+    + '</div>'
+    + '<div class="restart"><button type="button" id="editBtn">回答を見直す</button><button type="button" id="resetBtn">最初からやり直す</button></div>';
+
+  $("result").innerHTML = html;
+  $("copyBtn").addEventListener("click", copyResult);
+  $("printBtn").addEventListener("click", function(){ window.print(); });
+  $("pdfBtn").addEventListener("click", function(){
+    $("pdfTip").classList.add("show");
+    setTimeout(function(){ window.print(); }, 600);
+  });
+  $("editBtn").addEventListener("click", function(){ show(1); });
+  $("resetBtn").addEventListener("click", resetAll);
+  show(TOTAL+1);
+}
+function sec(n, title, body){ return '<section class="sec"><h3><span>'+n+'</span>'+esc(title)+'</h3>'+body+'</section>'; }
+function goal(when, key, text, ph){
+  return '<div class="goal"><div class="when">'+when+'</div>'
+       + '<div class="goal-text" contenteditable="true" role="textbox" aria-multiline="true" aria-label="'+when+'の目標" data-goal="'+key+'" data-ph="'+esc(ph)+'">'+esc(text)+'</div></div>';
+}
+
+/* ===== コピー ===== */
+function resultText(){
+  var root = $("result"), out = [];
+  var head = root.querySelector(".r-head");
+  out.push(head.querySelector(".for").textContent);
+  out.push(head.querySelector("h2").textContent);
+  out.push(head.querySelector(".date").textContent, "");
+  out.push("■ あなたが目指したい美容師像", root.querySelector(".vision p:last-child").textContent, "");
+  root.querySelectorAll(".sec").forEach(function(s){
+    out.push("■ " + s.querySelector("h3").textContent.replace(/^\d/,function(d){return d+". ";}));
+    var chips = s.querySelectorAll(".chip");
+    if(chips.length) out.push(Array.prototype.map.call(chips,function(c){return "#"+c.textContent;}).join(" "));
+    s.querySelectorAll("p").forEach(function(p){ out.push(p.textContent); });
+    s.querySelectorAll(".acts li").forEach(function(li,i){ out.push((i+1)+". "+li.textContent); });
+    out.push("");
+  });
+  out.push("■ 目標設定");
+  root.querySelectorAll(".goal").forEach(function(gd){
+    out.push("【"+gd.querySelector(".when").textContent+"】"+(gd.querySelector(".goal-text").innerText.trim()||"（未記入）"));
+  });
+  var m = root.querySelector(".msg p:last-child");
+  if(m){ out.push("", "■ あなたのメッセージ", m.innerText); }
+  return out.join("\n");
+}
+function copyResult(){
+  var text = resultText();
+  function fallback(){
+    var ta = document.createElement("textarea");
+    ta.value = text; ta.setAttribute("readonly",""); ta.style.position="fixed"; ta.style.top="-1000px"; ta.style.opacity="0";
+    document.body.appendChild(ta); ta.select(); ta.setSelectionRange(0, text.length);
+    var ok = false; try{ ok = document.execCommand("copy"); }catch(e){}
+    document.body.removeChild(ta);
+    toast(ok ? "結果をコピーしました" : "コピーできませんでした。長押しで選択してコピーしてください");
+  }
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(text).then(function(){ toast("結果をコピーしました"); }, fallback);
+  } else { fallback(); }
+}
+
+var toastTimer;
+function toast(msg){
+  var t = $("toast"); t.textContent = msg; t.classList.add("show");
+  clearTimeout(toastTimer); toastTimer = setTimeout(function(){ t.classList.remove("show"); }, 2400);
+}
+
+/* ===== リセット ===== */
+function resetAll(){
+  if(!confirm("回答をすべて消して、最初からやり直しますか？")) return;
+  state = { customers:[], impression:[], team:[], likes:[], types:[], likesFree:"", name:"", challenge:"", message:"" };
+  document.querySelectorAll(".opt").forEach(function(b){ b.setAttribute("aria-pressed","false"); });
+  ["likesFree","inName","inChallenge","inMessage"].forEach(function(id){ $(id).value=""; });
+  Q.forEach(function(q){ updateCount(q.key); });
+  $("result").innerHTML = "";
+  show(0);
+}
+
+/* ===== イベント ===== */
+function init(){
+  buildSteps();
+
+  $("steps").addEventListener("click", function(e){
+    var b = e.target.closest(".opt"); if(!b) return;
+    var k = b.getAttribute("data-k"), i = parseInt(b.getAttribute("data-i"),10);
+    var arr = state[k], pos = arr.indexOf(i);
+    if(pos === -1) arr.push(i); else arr.splice(pos,1);
+    b.setAttribute("aria-pressed", pos === -1 ? "true" : "false");
+    updateCount(k); updateProgress();
+  });
+
+  var bind = { likesFree:"likesFree", inName:"name", inChallenge:"challenge", inMessage:"message" };
+  Object.keys(bind).forEach(function(id){
+    $(id).addEventListener("input", function(){ state[bind[id]] = this.value; updateProgress(); });
+  });
+
+  $("startBtn").addEventListener("click", function(){ show(1); });
+  $("backBtn").addEventListener("click", function(){ show(cur - 1); });
+  $("nextBtn").addEventListener("click", function(){
+    if(cur < TOTAL) show(cur + 1);
+    else { try{ generate(); }catch(err){ console.error(err); toast("結果の作成中に問題が起きました。もう一度ボタンを押してください"); } }
+  });
+
+  show(0);
+}
+
+if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();
+})();
+</script>
+</body>
+</html>
